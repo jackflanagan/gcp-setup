@@ -1,3 +1,5 @@
+@Library('utils') _
+
 pipeline{
     agent {
         label "node1"
@@ -22,6 +24,11 @@ pipeline{
         stage("Run Init KubeController playbook"){
             steps{
                 ansiblePlaybook credentialsId: 'JenkinsPK', installation: 'ansible', inventory: 'ansible/inventory', playbook: 'ansible/initKubeController.yaml'
+            }
+        }
+        stage("Checking infrastructure"){
+            steps{
+                KubectlChecks.CheckNodes()
             }
         }
     }
