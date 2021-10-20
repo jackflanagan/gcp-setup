@@ -29,7 +29,7 @@ pipeline{
         stage("Grabbing Context"){
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: "JenkinsPK", keyFileVariable: 'keyfile')]){
-                sh "scp -i ${keyfile} jack@controller/home/jack/.kube/config /home/jack/.kube/config" 
+                sh "scp -i ${keyfile} jack@controller:/home/jack/.kube/config /home/jack/.kube/config" 
                 }
             }
         }
