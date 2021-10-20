@@ -37,6 +37,14 @@
       - containerd.io
     notify:
       - docker status
+  
+  - name: Changing driver to systemd
+    copy:
+      dest: "/etc/docker/daemon.json"
+      content: |
+        {
+          "exec-opts": ["native.cgroupdriver=systemd"]
+        }
 
   handlers:
   - name: docker status
