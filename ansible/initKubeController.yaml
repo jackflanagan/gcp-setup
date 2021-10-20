@@ -8,7 +8,7 @@
   - name: Setup kubeconfig for user
     command: "{{ item }}"
     with_items:
-     - mkdir -p /home/jack/.kube
+     - mkdir /home/jack/.kube
      - cp -i /etc/kubernetes/admin.conf /home/jack/.kube/config
      - chown jack:jack /home/jack/.kube/config
 
