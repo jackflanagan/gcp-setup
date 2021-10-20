@@ -8,8 +8,8 @@
   - name: Setup kubeconfig for user
     command: "{{ item }}"
     with_items:
-     - mkdir /home/jack/.kube
-     - cp -i /etc/kubernetes/admin.conf /home/jack/.kube/config
+     - mkdir -p /home/jack/.kube
+     - cp /etc/kubernetes/admin.conf /home/jack/.kube/config
      - chown jack:jack /home/jack/.kube/config
 
   - name: Install calico pod network
