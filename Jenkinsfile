@@ -26,12 +26,16 @@ pipeline{
                 ansiblePlaybook credentialsId: 'JenkinsPK', installation: 'ansible', inventory: 'ansible/inventory', playbook: 'ansible/initKubeController.yaml'
             }
         }
-        stage("Checking infrastructure"){
+        stage("Grabbing Context"){
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: "JenkinsPK", keyFileVariable: 'keyfile')]){
                 sh "scp -i ${keyfile} jack@controller/home/jack/.kube/config /home/jack/.kube/config" 
-                @KubectlChecks.CheckNodes()
                 }
+            }
+        }
+        stage("Checking infrastructure"){
+            steps{
+                @KubectlChecks.CheckNodes()
             }
         }
     }
