@@ -19,5 +19,10 @@ pipeline{
                 ansiblePlaybook credentialsId: 'JenkinsPK', installation: 'ansible', inventory: 'ansible/inventory', playbook: 'ansible/installKubeTools.yaml'
             }
         }
+        stage("Run Init KubeController playbook"){
+            steps{
+                ansiblePlaybook credentialsId: 'JenkinsPK', installation: 'ansible', inventory: 'ansible/inventory', playbook: 'ansible/initKubeController.yaml'
+            }
+        }
     }
 }
