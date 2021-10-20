@@ -35,7 +35,7 @@ pipeline{
         }
         stage("Checking infrastructure"){
             steps{
-                @KubectlChecks.CheckNodes()
+                KubectlChecks.CheckNodes()
             }
         }
     }
