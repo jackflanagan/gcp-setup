@@ -3,4 +3,4 @@
   become: true
   tasks:  
   - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="10.240.0.10" --apiserver-cert-extra-sans="10.240.0.10"  --node-name k8s-master --pod-network-cidr=10.240.0.10/16
+    command: kubeadm init --ignore-preflight-errors=NumCPU --node-name controller --pod-network-cidr=192.168.0.0/16

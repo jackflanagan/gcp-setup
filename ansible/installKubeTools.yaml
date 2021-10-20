@@ -23,6 +23,7 @@
         - kubelet 
         - kubeadm 
         - kubectl
+        - kubernetes-cni
 
   - name: Remove swapfile from /etc/fstab
     mount:
