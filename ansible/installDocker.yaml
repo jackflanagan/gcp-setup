@@ -37,3 +37,7 @@
       - containerd.io
     notify:
       - docker status
+
+  handlers:
+  - name: docker status
+    service: name=docker state=started
