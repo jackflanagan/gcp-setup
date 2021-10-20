@@ -30,7 +30,7 @@ pipeline{
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: "JenkinsPK", keyFileVariable: 'keyfile')]){
                 sh "scp -i ${keyfile} jack@controller/home/jack/.kube/config /home/jack/.kube/config" 
-                KubectlChecks.CheckNodes()
+                @KubectlChecks.CheckNodes()
                 }
             }
         }
