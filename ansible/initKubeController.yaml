@@ -4,3 +4,14 @@
   tasks:  
   - name: Initialize the Kubernetes cluster using kubeadm
     command: kubeadm init --ignore-preflight-errors=NumCPU --node-name controller --pod-network-cidr=192.168.0.0/16
+
+  - name: Setup kubeconfig for user
+    command: "{{ item }}"
+    with_items:
+     - mkdir -p /home/jack/.kube
+     - cp -i /etc/kubernetes/admin.conf /home/jack/.kube/config
+     - chown jack:jack /home/jack/.kube/config
+
+  - name: Install calico pod network
+    become: false
+    command: kubectl create -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
