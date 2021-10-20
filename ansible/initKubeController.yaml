@@ -3,7 +3,7 @@
   become: true
   tasks:  
   - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --ignore-preflight-errors=NumCPU --node-name controller --pod-network-cidr=192.168.0.0/16
+    command: kubeadm init --ignore-preflight-errors=all --node-name controller --pod-network-cidr=192.168.0.0/16
 
   - name: Setup kubeconfig for user
     command: "{{ item }}"
@@ -14,4 +14,4 @@
 
   - name: Install calico pod network
     become: false
-    command: kubectl create -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
+    command: kubectl apply -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
