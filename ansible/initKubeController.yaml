@@ -12,6 +12,11 @@
      - cp /etc/kubernetes/admin.conf /home/jack/.kube/config
      - chown jack:jack /home/jack/.kube/config
 
-  - name: Install calico pod network
+  - name: Get kubectl version base64d
     become: false
-    command: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    shell: kubectl version | base64 | tr -d '\n'
+    register: kubectlv
+
+  - name: Install weave pod network
+    become: false
+    command: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version={{ kubectlv.stdout }}"
