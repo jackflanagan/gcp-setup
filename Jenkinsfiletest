@@ -10,6 +10,7 @@ pipeline{
             steps{
                 script{
                 calculator.add()
+                kubechecks.addtest()
                 }
             }
         }
