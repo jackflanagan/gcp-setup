@@ -1,6 +1,26 @@
 ---
-- hosts: all
+- hosts: controller
   become: true
   tasks:  
   - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
+    command: kubeadm init --ignore-preflight-errors=all --node-name controller --pod-network-cidr=192.168.0.0/16
+
+  - name: Setup kubeconfig for user
+    command: "{{ item }}"
+    with_items:
+     - mkdir -p /home/jack/.kube
+     - cp /etc/kubernetes/admin.conf /home/jack/.kube/config
+     - chown jack:jack /home/jack/.kube/config
+
+  - name: Get kubectl version base64d
+    become: false
+    shell: kubectl version | base64 | tr -d '\n'
+    register: kubectlv
+
+  - name: Install weave pod network
+    become: false
+    command: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version={{ kubectlv.stdout }}"
+
+  - name: Remove Controller taint to allow pods to run there
+    become: false
+    command: kubectl taint nodes controller node-role.kubernetes.io/master:NoSchedule-

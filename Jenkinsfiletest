@@ -1,0 +1,18 @@
+@Library('utils') _
+
+pipeline{
+    agent {
+        label "node1"
+    }
+
+    stages{
+        stage("Checking infrastructure"){
+            steps{
+                script{
+                calculator.add()
+                kubechecks.addtest()
+                }
+            }
+        }
+    }
+}

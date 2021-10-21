@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: controller
   become: true
   tasks:
   - name: Install packages that allow apt to be used over HTTPS
@@ -37,3 +37,15 @@
       - containerd.io
     notify:
       - docker status
+  
+  - name: Changing driver to systemd
+    copy:
+      dest: "/etc/docker/daemon.json"
+      content: |
+        {
+          "exec-opts": ["native.cgroupdriver=systemd"]
+        }
+
+  handlers:
+  - name: docker status
+    service: name=docker state=started
