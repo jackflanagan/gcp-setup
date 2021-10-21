@@ -20,3 +20,7 @@
   - name: Install weave pod network
     become: false
     command: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version={{ kubectlv.stdout }}"
+
+  - name: Remove Controller taint to allow pods to run there
+    become: false
+    command: kubectl taint nodes controller node-role.kubernetes.io/master:NoSchedule-
