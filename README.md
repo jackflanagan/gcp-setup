@@ -39,7 +39,7 @@ The Jenkins setup is currently manual :grimacing:  First we need to log into the
 gcloud compute ssh grafter
 ```
 
-[Install docker](https://docs.docker.com/engine/install/ubuntu/) and then run the docker container for the jenkins image 
+[Install docker](installDocker.sh) and then run the docker container for the jenkins image 
 
 ```
 docker run -p 8080:8080 -p 50000:50000 --restart=always -d -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts

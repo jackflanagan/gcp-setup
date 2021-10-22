@@ -1,9 +1,7 @@
 @Library('utils') _
 
 pipeline{
-    agent {
-        label "node1"
-    }
+    agent any
 
     stages{
         stage("Git Checkout"){
