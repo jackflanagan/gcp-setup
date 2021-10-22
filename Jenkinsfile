@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-            git credentialsId: 'JenkinsPK', url: 'git@github.com:jackflanagan/gcp-setup.git', branch: 'dev'
+            git url: 'https://github.com/jackflanagan/gcp-setup.git', branch: 'dev'
             }
         }
         stage("Run Install Docker playbook"){
